@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}AI Recommendations — Nexergy AI{% endblock %}
+
+{% block content %}
+<div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+    <div>
+        <h1 class="text-3xl font-bold">AI <span class="text-neon">Recommendations</span></h1>
+        <p class="text-gray-400 mt-1">Rule-based insights for {{ building.name }}</p>
+    </div>
+    <div class="glass-card kpi-glow px-6 py-4 text-center">
+        <p class="text-xs text-gray-500 uppercase">Est. Monthly Savings</p>
+        <p class="text-2xl font-bold text-neon">₹{{ "{:,.0f}".format(total_savings) }}</p>
+    </div>
+</div>
+
+{% if not recommendations %}
+<div class="glass-panel p-8 text-center text-gray-400">
+    <p>No recommendations yet. <a href="{{ url_for('input.energy_input') }}" class="text-neon">Add energy data</a> first.</p>
+</div>
+{% else %}
+<div class="grid md:grid-cols-2 gap-6">
+    {% for rec in recommendations %}
+    <article class="glass-card p-6 hover:border-neon/50 transition-all">
+        <div class="flex flex-wrap gap-2 mb-3">
+            <span class="badge-priority badge-{{ rec.priority|lower }}">{{ rec.priority }} Priority</span>
+            <span class="badge-impact">Impact: {{ rec.energy_impact }}</span>
+        </div>
+        <h3 class="text-lg font-semibold text-neon mb-2">{{ rec.title }}</h3>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">{{ rec.message }}</p>
+        <p class="text-sm"><span class="text-gray-500">Est. savings:</span>
+            <span class="text-neon font-bold">₹{{ "{:,.0f}".format(rec.estimated_savings) }}/month</span>
+        </p>
+    </article>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="mt-8 flex gap-4">
+    <a href="{{ url_for('dashboard.dashboard') }}" class="nex-btn-outline px-6 py-2">Back to Dashboard</a>
+    <a href="{{ url_for('solar.solar_page') }}" class="nex-btn-primary px-6 py-2">Solar Comparison</a>
+</div>
+{% endblock %}

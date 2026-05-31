@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Solar Comparison — Nexergy AI{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold">Solar <span class="text-neon">Comparison</span></h1>
+    <p class="text-gray-400 mt-1">{{ building.solar_kw }} kW system · {{ building.peak_sun_hours }} peak sun hours/day</p>
+</div>
+
+<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="glass-card kpi-glow p-5">
+        <p class="text-gray-500 text-xs uppercase">Solar Generation</p>
+        <p class="text-2xl font-bold text-neon">{{ solar.solar_monthly_generation_kwh }} kWh/mo</p>
+    </div>
+    <div class="glass-card kpi-glow p-5">
+        <p class="text-gray-500 text-xs uppercase">Grid After Solar</p>
+        <p class="text-2xl font-bold text-neon">{{ solar.grid_kwh_after_solar }} kWh/mo</p>
+    </div>
+    <div class="glass-card kpi-glow p-5">
+        <p class="text-gray-500 text-xs uppercase">Monthly Savings</p>
+        <p class="text-2xl font-bold text-neon">₹{{ "{:,.0f}".format(solar.monthly_savings) }}</p>
+    </div>
+    <div class="glass-card kpi-glow p-5">
+        <p class="text-gray-500 text-xs uppercase">Savings %</p>
+        <p class="text-2xl font-bold text-neon">{{ solar.savings_percentage }}%</p>
+    </div>
+</div>
+
+<div class="grid lg:grid-cols-2 gap-6 mb-8">
+    <div class="glass-panel p-6 rounded-2xl">
+        <h3 class="text-neon font-semibold mb-4">Before Solar</h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+            <li>Adjusted monthly kWh: <strong class="text-white">{{ summary.adjusted_monthly_kwh }}</strong></li>
+            <li>Monthly bill: <strong class="text-neon">₹{{ "{:,.0f}".format(solar.current_monthly_bill) }}</strong></li>
+        </ul>
+    </div>
+    <div class="glass-panel p-6 rounded-2xl border-neon/30">
+        <h3 class="text-neon font-semibold mb-4">After Solar</h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+            <li>Grid kWh: <strong class="text-white">{{ solar.grid_kwh_after_solar }}</strong></li>
+            <li>Monthly bill: <strong class="text-neon">₹{{ "{:,.0f}".format(solar.reduced_monthly_bill) }}</strong></li>
+            <li>Annual savings: <strong class="text-neon">₹{{ "{:,.0f}".format(solar.annual_savings) }}</strong></li>
+        </ul>
+    </div>
+</div>
+
+<div class="glass-panel p-6 rounded-2xl max-w-3xl mx-auto">
+    <h3 class="text-neon font-semibold mb-4 text-center">Monthly Bill: Before vs After Solar</h3>
+    <canvas id="chartSolar" height="280"></canvas>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script id="solar-chart-data" type="application/json">{{ chart_data_json|safe }}</script>
+<script src="{{ url_for('static', filename='js/solar_charts.js') }}"></script>
+{% endblock %}

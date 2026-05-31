@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Home — Nexergy AI{% endblock %}
+
+{% block content %}
+<section class="text-center py-16">
+    <p class="text-neon text-sm uppercase tracking-widest mb-3">Smart Energy Intelligence</p>
+    <h1 class="text-4xl md:text-6xl font-bold mb-4">
+        Power <span class="text-neon glow-text">Nexergy AI</span> for Large Buildings
+    </h1>
+    <p class="text-gray-400 max-w-2xl mx-auto mb-8 text-lg">
+        Calculate electricity consumption for hospitals, campuses, malls, hotels, offices, and more.
+        Dashboards, solar simulation, and AI-style recommendations in one place.
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+        <a href="{{ url_for('input.energy_input') }}" class="nex-btn-primary px-8 py-3 text-lg">Start Energy Input</a>
+        <a href="{{ url_for('dashboard.dashboard') }}" class="nex-btn-outline px-8 py-3 text-lg">View Dashboard</a>
+    </div>
+    <div class="flex flex-wrap justify-center gap-3 mt-6 text-sm">
+        <a href="{{ url_for('input.energy_input', sample='hospital') }}" class="text-neon hover:underline">Load hospital sample</a>
+        <span class="text-gray-600">|</span>
+        <a href="{{ url_for('input.energy_input', sample='software') }}" class="text-neon hover:underline">Load software campus sample</a>
+    </div>
+</section>
+
+<section class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+    <div class="glass-card kpi-glow p-6">
+        <h3 class="text-neon font-semibold mb-2">Multi-Block Buildings</h3>
+        <p class="text-gray-400 text-sm">Model blocks, floors, zones, and hundreds of devices across your facility.</p>
+    </div>
+    <div class="glass-card kpi-glow p-6">
+        <h3 class="text-neon font-semibold mb-2">Accurate Formulas</h3>
+        <p class="text-gray-400 text-sm">kWh, demand/diversity factors, standby losses, and tariff-based billing.</p>
+    </div>
+    <div class="glass-card kpi-glow p-6">
+        <h3 class="text-neon font-semibold mb-2">Solar Simulation</h3>
+        <p class="text-gray-400 text-sm">Compare grid bills before and after rooftop solar generation.</p>
+    </div>
+    <div class="glass-card kpi-glow p-6">
+        <h3 class="text-neon font-semibold mb-2">AI Recommendations</h3>
+        <p class="text-gray-400 text-sm">Rule-based insights for HVAC, lighting, IT loads, and power factor.</p>
+    </div>
+</section>
+
+<section class="mt-16 glass-panel p-8 rounded-2xl">
+    <h2 class="text-2xl font-bold mb-4">Built for</h2>
+    <div class="flex flex-wrap gap-3">
+        {% for t in ['Hospitals', 'Software Companies', 'Malls', 'Colleges', 'Hotels', 'Offices', 'Campuses'] %}
+        <span class="badge-neon px-4 py-2 rounded-full text-sm">{{ t }}</span>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

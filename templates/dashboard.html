@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Nexergy AI{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold">Energy <span class="text-neon">Dashboard</span></h1>
+    <p class="text-gray-400 mt-1">{{ building.name }} — {{ building.building_type|title }} ({{ building.building_area|int }} sq ft)</p>
+</div>
+
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+    <div class="glass-card kpi-glow p-5">
+        <p class="text-gray-500 text-xs uppercase">Total Monthly kWh</p>
+        <p class="text-3xl font-bold text-neon mt-1">{{ summary.total_monthly_kwh }}</p>
+        <p class="text-xs text-gray-500 mt-1">Adjusted: {{ summary.adjusted_monthly_kwh }} kWh</p>
+    </div>
+    <div class="glass-card kpi-glow p-5">
+        <p class="text-gray-500 text-xs uppercase">Monthly Bill</p>
+        <p class="text-3xl font-bold text-neon mt-1">₹{{ "{:,.0f}".format(summary.monthly_bill) }}</p>
+    </div>
+    <div class="glass-card kpi-glow p-5">
+        <p class="text-gray-500 text-xs uppercase">Annual Cost</p>
+        <p class="text-3xl font-bold text-neon mt-1">₹{{ "{:,.0f}".format(summary.annual_cost) }}</p>
+    </div>
+    <div class="glass-card kpi-glow p-5">
+        <p class="text-gray-500 text-xs uppercase">Solar Savings Potential</p>
+        <p class="text-3xl font-bold text-neon mt-1">₹{{ "{:,.0f}".format(solar.monthly_savings) }}/mo</p>
+        <p class="text-xs text-gray-500">{{ solar.savings_percentage }}% reduction</p>
+    </div>
+    <div class="glass-card kpi-glow p-5">
+        <p class="text-gray-500 text-xs uppercase">Highest Consumer</p>
+        <p class="text-lg font-bold text-neon mt-1 truncate">{{ summary.highest_device_name }}</p>
+        <p class="text-xs text-gray-500">{{ summary.highest_device_kwh }} kWh/mo</p>
+    </div>
+    <div class="glass-card kpi-glow p-5">
+        <p class="text-gray-500 text-xs uppercase">kWh per Occupant</p>
+        <p class="text-3xl font-bold text-neon mt-1">{{ summary.kwh_per_occupant }}</p>
+        <p class="text-xs text-gray-500">Benchmark: {{ benchmark.expected }} kWh expected</p>
+    </div>
+</div>
+
+<div class="grid lg:grid-cols-2 gap-6 mb-8">
+    <div class="glass-panel p-4 rounded-2xl">
+        <h3 class="text-neon font-semibold mb-3">Device-wise Usage (kWh)</h3>
+        <canvas id="chartDevices" height="220"></canvas>
+    </div>
+    <div class="glass-panel p-4 rounded-2xl">
+        <h3 class="text-neon font-semibold mb-3">Category-wise Usage</h3>
+        <canvas id="chartCategories" height="220"></canvas>
+    </div>
+    <div class="glass-panel p-4 rounded-2xl">
+        <h3 class="text-neon font-semibold mb-3">Block-wise Comparison</h3>
+        <canvas id="chartBlocks" height="220"></canvas>
+    </div>
+    <div class="glass-panel p-4 rounded-2xl">
+        <h3 class="text-neon font-semibold mb-3">Bill: Before vs After Solar</h3>
+        <canvas id="chartSolarBill" height="220"></canvas>
+    </div>
+</div>
+
+<section class="glass-panel p-6 rounded-2xl overflow-x-auto">
+    <h3 class="text-neon font-semibold mb-4">Device Breakdown</h3>
+    <table class="nex-table w-full text-sm">
+        <thead>
+            <tr>
+                <th>Device</th>
+                <th>Category</th>
+                <th>Block</th>
+                <th>Zone</th>
+                <th class="text-right">Monthly kWh</th>
+                <th>Critical</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in device_rows %}
+            <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.category }}</td>
+                <td>{{ row.block }}</td>
+                <td>{{ row.zone }}</td>
+                <td class="text-right text-neon">{{ row.monthly_kwh }}</td>
+                <td>{% if row.critical %}<span class="badge-high">Yes</span>{% else %}—{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script id="chart-data" type="application/json">{{ chart_data_json|safe }}</script>
+<script src="{{ url_for('static', filename='js/dashboard_charts.js') }}"></script>
+{% endblock %}

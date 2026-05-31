@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Nexergy AI{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="nex-body min-h-screen text-gray-100">
+    <nav class="nex-nav glass-panel sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="{{ url_for('home.index') }}" class="flex items-center gap-3">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Nexergy AI" class="h-9 w-9">
+                    <span class="text-xl font-bold nex-brand">Nexergy <span class="text-neon">AI</span></span>
+                </a>
+                <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+                    <a href="{{ url_for('home.index') }}" class="nav-link">Home</a>
+                    <a href="{{ url_for('input.energy_input') }}" class="nav-link">Energy Input</a>
+                    <a href="{{ url_for('dashboard.dashboard') }}" class="nav-link">Dashboard</a>
+                    <a href="{{ url_for('recommendations.recommendations') }}" class="nav-link">AI Tips</a>
+                    <a href="{{ url_for('solar.solar_page') }}" class="nav-link">Solar</a>
+                </div>
+                <a href="{{ url_for('input.energy_input') }}" class="nex-btn-primary text-sm px-4 py-2">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="max-w-7xl mx-auto px-4 mt-4 space-y-2">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} glass-panel px-4 py-3 rounded-lg text-sm">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endwith %}
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="border-t border-neon/20 mt-12 py-6 text-center text-sm text-gray-500">
+        <p>&copy; {{ 2026 }} Nexergy AI — Energy estimates for large buildings. Not a substitute for certified audits.</p>
+    </footer>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

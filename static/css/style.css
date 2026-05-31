@@ -1,0 +1,231 @@
+/* Nexergy AI — Futuristic black + neon green theme */
+
+:root {
+  --bg-dark: #050505;
+  --bg-panel: #07110b;
+  --neon-primary: #00ff9c;
+  --neon-secondary: #00e676;
+  --neon-accent: #39ff14;
+  --glass-border: rgba(0, 255, 156, 0.25);
+  --text-muted: #9ca3af;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.nex-body {
+  background: radial-gradient(ellipse at top, #07110b 0%, #050505 55%);
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: #e5e7eb;
+}
+
+.text-neon {
+  color: var(--neon-primary);
+}
+
+.nex-brand {
+  letter-spacing: 0.02em;
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(0, 255, 156, 0.6);
+}
+
+.glass-panel,
+.glass-card {
+  background: rgba(7, 17, 11, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+}
+
+.glass-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(57, 255, 20, 0.45);
+}
+
+.kpi-glow {
+  box-shadow: 0 0 24px rgba(0, 255, 156, 0.12), inset 0 0 40px rgba(0, 230, 118, 0.03);
+}
+
+.kpi-glow:hover {
+  box-shadow: 0 0 32px rgba(0, 255, 156, 0.22);
+}
+
+.nex-nav {
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.nav-link {
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--neon-primary);
+}
+
+.nex-input {
+  width: 100%;
+  background: #050505;
+  border: 1px solid rgba(0, 255, 156, 0.3);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  color: #f3f4f6;
+  font-size: 0.875rem;
+}
+
+.nex-input:focus {
+  outline: none;
+  border-color: var(--neon-accent);
+  box-shadow: 0 0 0 2px rgba(0, 255, 156, 0.2);
+}
+
+.form-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nex-btn-primary {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
+  color: #050505;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+  text-align: center;
+}
+
+.nex-btn-primary:hover {
+  box-shadow: 0 0 24px rgba(0, 255, 156, 0.45);
+  transform: translateY(-1px);
+}
+
+.nex-btn-outline {
+  display: inline-block;
+  border: 1px solid var(--neon-primary);
+  color: var(--neon-primary);
+  border-radius: 0.5rem;
+  transition: background 0.2s, color 0.2s;
+  text-align: center;
+}
+
+.nex-btn-outline:hover {
+  background: rgba(0, 255, 156, 0.1);
+}
+
+.badge-neon {
+  background: rgba(0, 255, 156, 0.1);
+  border: 1px solid rgba(0, 255, 156, 0.35);
+  color: var(--neon-primary);
+}
+
+.device-row {
+  border: 1px dashed rgba(0, 255, 156, 0.2);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  position: relative;
+}
+
+.remove-device {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  color: #f87171;
+  font-size: 0.75rem;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.remove-device:hover {
+  text-decoration: underline;
+}
+
+.nex-table th {
+  text-align: left;
+  color: var(--neon-primary);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 0.5rem;
+}
+
+.nex-table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.5rem;
+}
+
+.nex-table tr:hover td {
+  background: rgba(0, 255, 156, 0.04);
+}
+
+.badge-priority,
+.badge-impact,
+.badge-high {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badge-high {
+  background: rgba(248, 113, 113, 0.2);
+  color: #fca5a5;
+}
+
+.badge-high.badge-priority,
+.badge-high {
+  border: 1px solid rgba(248, 113, 113, 0.4);
+}
+
+.badge-priority.badge-high {
+  background: rgba(248, 113, 113, 0.15);
+  color: #f87171;
+}
+
+.badge-priority.badge-medium {
+  background: rgba(250, 204, 21, 0.15);
+  color: #facc15;
+}
+
+.badge-priority.badge-low {
+  background: rgba(96, 165, 250, 0.15);
+  color: #93c5fd;
+}
+
+.badge-impact {
+  background: rgba(0, 255, 156, 0.1);
+  color: var(--neon-secondary);
+  border: 1px solid rgba(0, 255, 156, 0.25);
+}
+
+.alert-success {
+  border-color: rgba(0, 255, 156, 0.5);
+  color: var(--neon-primary);
+}
+
+.alert-error {
+  border-color: rgba(248, 113, 113, 0.5);
+  color: #fca5a5;
+}
+
+.alert-info {
+  border-color: rgba(96, 165, 250, 0.4);
+  color: #93c5fd;
+}
+
+@media (max-width: 640px) {
+  .device-row .grid {
+    grid-template-columns: 1fr;
+  }
+}
